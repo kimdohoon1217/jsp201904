@@ -10,6 +10,7 @@
 	<%--jsp에서는 request를 사용할수 있다 --%>
 	<%
 		//jsp에 내장되어있는 기본 객체가 존재 request, response
+		//
 		
 	
 	
