@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class TimeServlet extends HttpServlet {
 	
-	//ÀÎÅÍÆäÀÌ½º ·Î°Å¸¦ »ç¿ë
+	//ì¸í„°í˜ì´ìŠ¤ ë¡œê±°ë¥¼ ì‚¬ìš©
 	private static final Logger logger = LoggerFactory.getLogger(TimeServlet.class);
 	
 	
@@ -24,8 +24,8 @@ public class TimeServlet extends HttpServlet {
 		
 		String method = req.getMethod();
 		
-		//·Î°Å¸¦ »ç¿ëÇÒ¶§´Â {} ", °ª  
-		//°ªÀÌ ´Ã¾î³¯¶§´Â {}·Î¿Í °ªÀ» ´õ Ãß°¡ÇØÁà¾ßÇÑ´Ù.
+		//ë¡œê±°ë¥¼ ì‚¬ìš©í• ë•ŒëŠ” {} ", ê°’  
+		//ê°’ì´ ëŠ˜ì–´ë‚ ë•ŒëŠ” {}ë¡œì™€ ê°’ì„ ë” ì¶”ê°€í•´ì¤˜ì•¼í•œë‹¤.
 		logger.debug("debug TimesTablesServlet doGet() {} {}", method, method+"test");
 		logger.trace("trace TimesTablesServlet doGet()");
 		logger.info("info TimesTablesServlet doGet()");
@@ -42,7 +42,7 @@ public class TimeServlet extends HttpServlet {
 	      pw.write("   td{ padding : 10px};");
 	      pw.write("</style>");
 	      pw.write("   <body>"); 
-	      pw.write("      <h1>±¸±¸´Ü Å×ÀÌºí</h1>");
+	      pw.write("      <h1>êµ¬êµ¬ë‹¨ í…Œì´ë¸”</h1>");
 	      pw.write(" <table border = 1>");
 	      for(int i = 1; i <= 9; i++) {
 	    	  pw.write("          <tr> ");

@@ -11,23 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//J2EE ±â¹ÝÀÇ À¥ ¾îÇÃ¸®ÄÉÀÌ¼Ç °³¹ß ½Ã main method¸¦ ÅëÇØ ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+//J2EE ê¸°ë°˜ì˜ ì›¹ ì–´í”Œë¦¬ì¼€ì´ì…˜ ê°œë°œ ì‹œ main methodë¥¼ í†µí•´ ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
 /*
-   - ¿ì¸®°¡ ÀÛ¼ºÇÑ À¥ ¾îÇÃ¸®ÄÉÀÌ¼ÇÀ»(war) was(tomcat)ÀÇ webapps Æú´õ ¹Ø¿¡ ÀÌµ¿À» ½ÃÄÑÁÖ¸é
-       ¼­¹ö°¡ ±âµ¿ ÇÒ ¶§ ÇØ´ç ¾îÇÃ¸®ÄÉÀÌ¼ÇÀ» ÀÚµ¿À¸·Î ·Îµù
-   - À¥ ¾îÇÃ¸®ÄÉÀÌ¼ÇÀÇ Æú´õ ¸íÀÌ  context path°¡ µÈ´Ù.(À¥ ¾îÇÃ¸®ÄÉÀÌ¼Ç ÀÌ¸§)
+   - ìš°ë¦¬ê°€ ìž‘ì„±í•œ ì›¹ ì–´í”Œë¦¬ì¼€ì´ì…˜ì„(war) was(tomcat)ì˜ webapps í´ë” ë°‘ì— ì´ë™ì„ ì‹œì¼œì£¼ë©´
+       ì„œë²„ê°€ ê¸°ë™ í•  ë•Œ í•´ë‹¹ ì–´í”Œë¦¬ì¼€ì´ì…˜ì„ ìžë™ìœ¼ë¡œ ë¡œë”©
+   - ì›¹ ì–´í”Œë¦¬ì¼€ì´ì…˜ì˜ í´ë” ëª…ì´  context pathê°€ ëœë‹¤.(ì›¹ ì–´í”Œë¦¬ì¼€ì´ì…˜ ì´ë¦„)
    
-   *** ¼­¹ö ¼³Á¤¿¡ ÀÇÇØ¼­ Æú´õ¸í°ú ´Ù¸¥ context path¸¦ ºÎ¿©ÇÏ´Â °Ô ±â´É
-      (ÇÏÁö¸¸ ¿ì¸®´Â ¼­¹ö ¿£Áö´Ï¾î°¡ ¾Æ´Ï±â ¶§¹®¿¡ ÇØ´ç ºÎºÐ±îÁö´Â °¡Áø ¾Ê´Â´Ù.)
-
-   - Æ¯Á¤ urlÀ» È£ÃâÇÏ¸é, urlÀ» Ã³¸® ÇØ ÁÙ ¼ö ÀÖ´Â servletÀ» È£ÃâÇÏ¿© ÀÀ´äÀ» »ý¼ºÇÑ´Ù.
+   *** ì„œë²„ ì„¤ì •ì— ì˜í•´ì„œ í´ë”ëª…ê³¼ ë‹¤ë¥¸ context pathë¥¼ ë¶€ì—¬í•˜ëŠ” ê²Œ ê¸°ëŠ¥
+      (í•˜ì§€ë§Œ ìš°ë¦¬ëŠ” ì„œë²„ ì—”ì§€ë‹ˆì–´ê°€ ì•„ë‹ˆê¸° ë•Œë¬¸ì— í•´ë‹¹ ë¶€ë¶„ê¹Œì§€ëŠ” ê°€ì§„ ì•ŠëŠ”ë‹¤.)
+   - íŠ¹ì • urlì„ í˜¸ì¶œí•˜ë©´, urlì„ ì²˜ë¦¬ í•´ ì¤„ ìˆ˜ ìžˆëŠ” servletì„ í˜¸ì¶œí•˜ì—¬ ì‘ë‹µì„ ìƒì„±í•œë‹¤.
    
-   * servlet »ý¼º ¹æ¹ý
-   1. class ¸¦ »ý¼º
-   2. HttpServlet Å¬·¡½º¸¦ »ó¼ÓÀ» ÇÑ´Ù.(J2EE spec¸¦ µû¸¥´Ù.)
-   3. doGet, doPost ¸Þ¼Òµå¸¦ ¿À¹ö¶óÀÌµù ÇÑ´Ù.
-   4. ¾î¶² urlÀ» ÇØ´ç ¼­ºí¸´¿¡¼­ Ã³¸® ÇÒ Áö ¸ÅÇÎ
-   (web.xml, servlet 3.0 ÀÌÈÄ ºÎÅÍ´Â servlet class ¾î³ëÅ×ÀÌ¼ÇÀ¸·Î ¼³Á¤)
+   * servlet ìƒì„± ë°©ë²•
+   1. class ë¥¼ ìƒì„±
+   2. HttpServlet í´ëž˜ìŠ¤ë¥¼ ìƒì†ì„ í•œë‹¤.(J2EE specë¥¼ ë”°ë¥¸ë‹¤.)
+   3. doGet, doPost ë©”ì†Œë“œë¥¼ ì˜¤ë²„ë¼ì´ë”© í•œë‹¤.
+   4. ì–´ë–¤ urlì„ í•´ë‹¹ ì„œë¸”ë¦¿ì—ì„œ ì²˜ë¦¬ í•  ì§€ ë§¤í•‘
+   (web.xml, servlet 3.0 ì´í›„ ë¶€í„°ëŠ” servlet class ì–´ë…¸í…Œì´ì…˜ìœ¼ë¡œ ì„¤ì •)
    
 */
 
@@ -52,7 +51,7 @@ public class HelloServlet extends HttpServlet {
       pw.write("      <title>helloServlet</title>"); 
       pw.write("   </head>"); 
       pw.write("   <body>"); 
-      pw.write("      <h1>hello, world ÇÑ±Û Å×½ºÆ®</h1>"); 
+      pw.write("      <h1>hello, world í•œê¸€ í…ŒìŠ¤íŠ¸</h1>"); 
       pw.write("   </body>"); 
       pw.write("</html>");
    }
