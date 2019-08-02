@@ -11,10 +11,10 @@
 	
 	
 	<table border = 1>
-	<%for(int i = 2; i <= 9; i++){ %>
+	<%for(int i = 1; i <= 9; i++){ %>
 		<tr>
-		<%for (int j = 1; j <= 9; j++){ %>
-			<td><%=i + " * " + j + " = " + (i*j)%></td>
+		<%for (int j = 2; j <= 9; j++){ %>
+			<td><%=j + " * " + i + " = " + (i*j)%></td>
 		<% }%>
 		</tr>
 	<% }%> 
