@@ -69,7 +69,7 @@
 		
 		<%for(UserVo user : list){%>
 			<tr>
-			 <td><span><%=user.getUserName() %></span></td>
+			 <td><span><%=user.getUserNm() %></span></td>
 			</tr>
 		<%} %> 
 		

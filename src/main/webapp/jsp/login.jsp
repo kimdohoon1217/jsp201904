@@ -50,8 +50,8 @@
 	post :<input type = "radio" id = "post" name = "method" value="post"/>
 	
 	<form action = "<%=request.getContextPath() %>/jsp/loginProcess.jsp" method = "get">
-		user id : <input type ="text" name ="userId" values="brown"/><br>
-		user id : <input type ="text" name ="userId" values="cony"/><br>
+		user id : <input type ="text" name ="userId" value="brown"/><br>
+		user id : <input type ="text" name ="userId" value="cony"/><br>
 		password : <input type= "password" name ="password" value = "brown1234"/><br>
 		<input type = "submit" value = "로그인"/>			
 	</form>
