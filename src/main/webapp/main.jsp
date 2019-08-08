@@ -1,4 +1,4 @@
-<%@page import="kr.or.ddit.user.model.UserVo"%>
+<%@page import="kr.or.ddit.user.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -15,13 +15,13 @@
 
 <title>Jsp</title>
 
-<script src="<%=request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
-<link href="<%=request.getContextPath() %>/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
+<link href="<%=request.getContextPath()%>/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
 
-<script src="<%=request.getContextPath() %>/bootstrap-3.3.2-dist/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/bootstrap-3.3.2-dist/js/bootstrap.js"></script>
 
-<link href="<%=request.getContextPath() %>/css/dashboard.css" rel="stylesheet">
-<link href="<%=request.getContextPath() %>/css/blog.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/dashboard.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/blog.css" rel="stylesheet">
 </head>
 
 <body>
@@ -46,10 +46,9 @@
 				<li><a href="#">Help</a></li>
 				<%
 					//session은 자동 포함 객체 에 포함되어있다
-					UserVo userVo = (UserVo)session.getAttribute("S_USERVO");
-					String userName = "";
-			    	userName = userVo == null ? "" : userVo.getUserNm();
-		
+							User userVo = (User)session.getAttribute("S_USERVO");
+							String userName = "";
+					    	userName = userVo == null ? "" : userVo.getUserNm();
 				%>
 				<li><a href="#"><%=userName %></a></li>
 			</ul>
