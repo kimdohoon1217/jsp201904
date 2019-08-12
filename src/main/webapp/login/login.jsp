@@ -32,20 +32,20 @@
 			$("#userId").val(userId);
 			//remember me checkbox 체크
 			$("#rememberMe").prop("checked", true);
+			
+			$("#pass").focus();
 		}
 			
   		//signin btn 클릭 이벤트 핸들러
   		$("#singinBtn").click(function(){
   			
-  			
-  			
-  			//remember me check box가 체크가 되었는지??
-  			if($("#rememberMe").prop("checked")){
-				Cookies.set("userId", $("#userId").val(), {expires : 30});
-  			}
-  			else{
-  				Cookies.remove("userId");
-  			}
+//   			//remember me check box가 체크가 되었는지??
+//   			if($("#rememberMe").prop("checked")){
+// 				Cookies.set("userId", $("#userId").val(), {expires : 30});
+//   			}
+//   			else{
+//   				Cookies.remove("userId");
+//   			}
   			
   			//로그인 요청을 보내야함
   			$("#frm").submit();

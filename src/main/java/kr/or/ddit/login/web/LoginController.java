@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.user.model.User;
+import kr.or.ddit.user.repository.IUserDao;
 import kr.or.ddit.user.repository.UserDao;
 
 
@@ -21,6 +22,16 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
+	
+	private IUserDao userDao;
+	
+	@Override
+	public void init() throws ServletException {
+		//싱글톤 대체 init은 한번만 실행되기때문에
+		userDao = new UserDao();
+	}
+
 
 	/**
 	 * Method : doGet
@@ -38,11 +49,16 @@ public class LoginController extends HttpServlet {
 		
 		//웹브라우져가 보낸 cookie 확인
 		Cookie[] cookies = request.getCookies();
-		for(Cookie cookie : cookies) {
-			logger.debug("cookie name : {}, cookie value : {}", 
-					cookie.getName(), cookie.getValue());
-			
+		
+		
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				logger.debug("cookie name : {}, cookie value : {}", 
+						cookie.getName(), cookie.getValue());
+				
+			}
 		}
+		
 		
 		//응답을 생성할때 웹브라우저에게 쿠키를 저장할 것을 지시
 
@@ -72,13 +88,18 @@ public class LoginController extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String pass = request.getParameter("pass");
 		
+		
+		String rememberMe = request.getParameter("rememberMe");
+		//rememberMe 파라미터가 존재할 경우 userId를 cookie로 생성
+		
+		manageUserIdCookie(response, userId, rememberMe);
+
 		logger.debug("userId : {}", userId);
 		logger.debug("password : {}", pass);
 		
 		//사용자가 입력한 계정정보와 db에있는 값이랑 비교
 		
 		//db에서 조회해온 사용자 정보 (가정)
-		UserDao userDao = new UserDao();
 		User user = userDao.getUser(userId);
 		
 		
@@ -88,7 +109,6 @@ public class LoginController extends HttpServlet {
 		//db에 존재하지 않는 사용자 체크 --> 로그인 화면으로 이동
 		if(user == null)
 			doGet(request, response);
-		
 		
 		
 		else if(user.checkLoginValidate(userId, pass)) {
@@ -115,6 +135,20 @@ public class LoginController extends HttpServlet {
 		
 		
 		
+	}
+
+
+	private void manageUserIdCookie(HttpServletResponse response, String userId, String rememberMe) {
+		Cookie cookie =new Cookie("userId", userId);
+		if(rememberMe != null) {
+			//날짜도 메서드 파라미터로 변경하는게좋다(유동성)
+			cookie.setMaxAge(60*60*24*30); //30일
+		}
+		else {
+			cookie.setMaxAge(0);
+		}
+		
+		response.addCookie(cookie);
 	}
 
 }
