@@ -23,8 +23,6 @@
     <script src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/js/js.cookie.js"></script>
     
-  </head>
-  
   <script>
   	$(document).ready(function(){
   		var userId = Cookies.get("userId");
@@ -63,39 +61,10 @@
   	});
   
   
-  	//cookieString = document.cookie;
-  	
-  	
-  	function getCookie(cookieId) {
-  		
-  		var cookies = document.cookie.split("; ");
-  		
-  		for(var i = 0; i < cookies.length; i++){
-  			var cookie = cookies[i];
-  			var cookieNmVal = cookie.split("=");
-  			
-  			if(cookieId == cookieNmVal[0])
-  				return cookieNmVal[1];
-  		}
-  		
-  	}
-  	
-  	
-  	function setCookie(cookieNm, cookieValue, expires){
-  		var dt = new Date();
-  		//날짜 변환
-  		dt.setDate(dt.getDate() + Number(expires));
-  		
-  		document.cookie = cookieNm + "=" + cookieValue + "; path=/; expires=" + dt.toGMTString();
-  	}
-  	
-  	
-  	function deleteCookie(cookieNm){
-  		setCookie(cookieNm, "", -1);
-  	}
-  	
-  
   </script>
+  
+  </head>
+  
   
 
   <body>
@@ -127,7 +96,7 @@
         
         <div class="checkbox">
           <label>
-            <input id = "rememberMe" type="checkbox" value="remember-me"> Remember me
+            <input id = "rememberMe" name = "rememberMe" type="checkbox" value="remember-me"> Remember me
           </label>
         </div>
         <button id = "singinBtn" class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
