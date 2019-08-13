@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import kr.or.ddit.util.CookieUtil;
+
 public class CookieUtilTest {
 
 	/**

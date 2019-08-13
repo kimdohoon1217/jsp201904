@@ -47,4 +47,14 @@ public class UserDao implements IUserDao{
 		return userVo;
 	}
 
+	@Override
+	public List<User> getUserListHalf() {
+		SqlSession sqlSession = MybatisUtil.getSession();
+		List<User> halfList = sqlSession.selectList("user.getUserListHalf");
+		
+		sqlSession.close();
+		
+		return halfList;
+	}
+
 }
