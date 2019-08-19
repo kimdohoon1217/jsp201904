@@ -18,21 +18,9 @@
 <%@include file="/commonjsp/basicLib.jsp" %>
 
 <title>Jsp-basicLib</title>
-<script>
-	$(document).ready(function(){
-		$(".prodTr").on("click", function(){
-		
-			$("#prod").val($(this).children().eq(1).text());
-			$("#frm").submit();
-		});
-		
-	});
-</script>
 </head>
 <body>
-<form id = "frm" action="${cp }/prod" method = "get">
-	<input type = "hidden" id = "prod" name = "prod"/>
-</form>
+
 
 	<!-- header -->
 	<%@include file="/commonjsp/header.jsp" %>
@@ -47,43 +35,39 @@
 </div><div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				
 
+
+
 <div class="row">
 	<div class="col-sm-8 blog-main">
 		<h2 class="sub-header">제품리스트</h2>
 		<div class="table-responsive">
 			<table class="table table-striped">
 				<tr>
-					<th>제품번호</th>
-					<th>제품코드</th>
+					<th>제품그룹명</th>
+					<th>제품그룹번호</th>
+					<th>바이어 이름</th>
+					<th>제품아이디</th>
 					<th>제품명</th>
+					<th>가격</th>
 				</tr>
 	
-			<%-- 	<%
-					List<Lprod> list = (List<Lprod>) request.getAttribute("list");
-						for(Lprod lp : list){
-				%>
-					<tr>
-						<td><%=lp.getLprod_id() %></td>
-						<td><%=lp.getLprod_gu() %></td>
-						<td><%=lp.getLprod_nm() %></td>
-					</tr>
-					
-				<%		
-						}
-				%> --%>
+	
 				
-				<c:forEach items="${list }" var="lprod">
+				<c:forEach items="${list }" var="prod">
 					<tr class = "prodTr">
-						<td>${lprod.lprod_id}</td>
-						<td>${lprod.lprod_gu}</td>
-						<td>${lprod.lprod_nm}</td>
+						<td>${prod.LPROD_NM}</td>
+						<td>${prod.LPROD_GU}</td>
+						<td>${prod.BUYER_NAME}</td>
+						<td>${prod.PROD_ID}</td>
+						<td>${prod.PROD_NAME}</td>
+						<td>${prod.PROD_PRICE}</td>
 					</tr>
 				</c:forEach>
 				
 			</table>
 		</div>
 
-		<a class="btn btn-default pull-right">사용자 등록</a>
+		<a class="btn btn-default pull-right">상품수정</a>
 
 		<div class="text-center">
 			<ul class="pagination">
@@ -101,3 +85,4 @@
 	</div>
 </body>
 </html>
+
