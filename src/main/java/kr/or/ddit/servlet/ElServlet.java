@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/elScope")
 public class ElServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	
+	
 
 
 	//el scope테스트를 진행할 화면으로 위임
