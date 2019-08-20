@@ -1,3 +1,4 @@
+<%@page import="kr.or.ddit.user.service.UserService"%>
 <%@page import="kr.or.ddit.user.model.User"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.or.ddit.user.repository.UserDao"%>
@@ -5,8 +6,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%!UserDao dao = new UserDao();
- List<User> list = dao.getUserList();%>
+<%!UserService service = new UserService();
+ List<User> list = service.getUserList();%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,6 +1,7 @@
 package kr.or.ddit.login.web;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -13,8 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.user.model.User;
-import kr.or.ddit.user.repository.IUserDao;
-import kr.or.ddit.user.repository.UserDao;
+import kr.or.ddit.user.service.IUserService;
+import kr.or.ddit.user.service.UserService;
 
 
 @WebServlet( urlPatterns = {"/login"}, loadOnStartup = 5)
@@ -24,12 +25,12 @@ public class LoginController extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	
-	private IUserDao userDao;
+	private IUserService userService;	//IUserService
 	
 	@Override
 	public void init() throws ServletException {
 		//싱글톤 대체 init은 한번만 실행되기때문에
-		userDao = new UserDao();
+		userService = new UserService();
 	}
 
 
@@ -100,7 +101,7 @@ public class LoginController extends HttpServlet {
 		//사용자가 입력한 계정정보와 db에있는 값이랑 비교
 		
 		//db에서 조회해온 사용자 정보 (가정)
-		User user = userDao.getUser(userId);
+		User user = userService.getUser(userId);
 		
 		
 		//사용자가 입력한 파라미터 정보와 db에서 조회해온 값이 동일 할 경우 --> webapp/main.jsp

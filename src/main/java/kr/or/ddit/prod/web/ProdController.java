@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.or.ddit.prod.model.Prod;
 import kr.or.ddit.prod.repository.IProdDao;
 import kr.or.ddit.prod.repository.ProdDao;
 
