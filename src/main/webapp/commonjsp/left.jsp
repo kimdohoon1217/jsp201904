@@ -3,5 +3,6 @@
 <ul class="nav nav-sidebar">
 		<li class="active"><a href="<%=request.getContextPath() %>/userList">사용자리스트<span class="sr-only">(current)</span></a></li>
 		<li class="active"><a href="<%=request.getContextPath() %>/userListOnlyHalf">사용자리스트(onlyHalf)<span class="sr-only">(current)</span></a></li>
+		<li class="active"><a href="<%=request.getContextPath() %>/userPagingList?page=1&pagesize=10">사용자 페이징 리스트<span class="sr-only">(current)</span></a></li>
 		<li class="active"><a href="<%=request.getContextPath() %>/lprodList">제품그룹리스트</a></li>
 </ul>
