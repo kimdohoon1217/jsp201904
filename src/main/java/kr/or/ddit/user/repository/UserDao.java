@@ -1,13 +1,11 @@
 package kr.or.ddit.user.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
 import kr.or.ddit.common.model.Page;
 import kr.or.ddit.user.model.User;
-import kr.or.ddit.util.MybatisUtil;
 
 public class UserDao implements IUserDao{
 

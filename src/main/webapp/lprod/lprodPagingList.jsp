@@ -1,3 +1,4 @@
+<%@page import="kr.or.ddit.lprod.model.Lprod"%>
 <%@page import="kr.or.ddit.user.model.User"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -14,57 +15,26 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
-
-<title>Jsp-basicLib</title>
 <%@include file="/commonjsp/basicLib.jsp" %>
 
+<title>Jsp-basicLib</title>
 <script>
-	//문서가 로딩이된후에 
 	$(document).ready(function(){
+		$(".prodTr").on("click", function(){
+			
+			var dataValue = $(this).data("lprodgu");
+			
 		
-		//사용자 정보 클릭시 이벤트 핸들러
-		$(".userTr").on("click", function(){
-			console.log("userTr click");
-			
-			//클릭된 tr태그의 자식태그(td)중 첫번째 자식의 텍스트 문자열
-			/*
-				<tr class = "userTr">
-					<input type = "hidden" value="${user.userId }"/>
-					<td>${user.userId }</td>
-					<td>${user.userNm }</td>
-					<td>${user.alias }</td>
-					<td>${user.reg_dt_fmt }</td>
-				</tr>
-			*/
-			// td태그의 텍스트 가져오기(두번째 자식)
-			var tdText = $($(this).children()[1]).text();
-			console.log("tdText : " + tdText);
-			
-			//input태그에 저장된 값 확인
-			var inputValue = $(this).find("input").val();
-			console.log("inputValue : " + inputValue);
-			
-			//data속성으로 값 가져오기
-			//data속성명은 소문자로 치환된다!!
-			//data-userId --> $(this).data("userid");
-			//대소문자 주의!!!!
-			var dataValue = $(this).data("userid")
-			console.log("dataValue : " + dataValue);
-			
-			//input 태그에 값 설정
-			$("#userId").val(dataValue);
-			
-			//form 태그이용 전송
-			console.log("serialize : " + $("#frm").serialize());
-			
+			$("#prod").val(dataValue);
 			$("#frm").submit();
 		});
+		
 	});
 </script>
 </head>
 <body>
-<form id = "frm" action="${cp }/user" method = "get">
-	<input type = "hidden" id = "userId" name = "userId"/>
+<form id = "frm" action="${cp }/prod" method = "get">
+	<input type = "hidden" id = "prod" name = "prod"/>
 </form>
 
 	<!-- header -->
@@ -82,40 +52,23 @@
 
 <div class="row">
 	<div class="col-sm-8 blog-main">
-		<h2 class="sub-header">사용자</h2>
+		<h2 class="sub-header">제품리스트</h2>
 		<div class="table-responsive">
 			<table class="table table-striped">
 				<tr>
-					<th>사용자 아이디</th>
-					<th>사용자 이름</th>
-					<th>사용자 별명</th>
-					<th>등록일시</th>
+					<th>제품번호</th>
+					<th>제품코드</th>
+					<th>제품명</th>
 				</tr>
+	
 				
-				<%-- <%
-					List<User> userList = (List<User>) request.getAttribute("userList");
-						for(User user : userList){
-				%>
-				
-				<tr>
-					<td><%=user.getUserId() %></td>
-					<td><%=user.getUserNm() %></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<%} %> --%>
-				
-				<%-- for(User user : userList) --%>
-				<c:forEach items="${userList }" var="user" varStatus="loop">
-					<tr class = "userTr" data-userId = "${user.userId }">
-						<input type = "hidden" value="${user.userId }"/>
-						<td>${user.userId }</td>
-						<td>${user.userNm }</td>
-						<td>${user.alias }</td>
-						<td>${user.reg_dt_fmt }</td>
+				<c:forEach items="${list }" var="lprod">
+					<tr class = "prodTr" data-lprodGu="${lprod.lprod_gu }">
+						<td>${lprod.lprod_id}</td>
+						<td>${lprod.lprod_gu}</td>
+						<td>${lprod.lprod_nm}</td>
 					</tr>
 				</c:forEach>
-				
 				
 			</table>
 		</div>
@@ -123,7 +76,7 @@
 		<a class="btn btn-default pull-right">사용자 등록</a>
 
 		<div class="text-center">
-			<ul class="pagination">
+					<ul class="pagination">
 				<%--이전 페이지 가기 : 지금 있는 페이지에서 한 페이지 전으로
 					단 1페이지인 경우는 li 태그에 class = "disabled"를 추가를 하고
 					이동경로는 차단
@@ -136,7 +89,7 @@
 			  	 	</c:when>
 			  	 	<c:otherwise>
 				  	 	<li>
-					      <a href="${cp }/userPagingList?page=${pageVo.page-1 }" aria-label="Previous">
+					      <a href="${cp }/lprodPagingList?page=${pageVo.page-1 }" aria-label="Previous">
 					        <span aria-hidden="true">&laquo;</span>
 					      </a>
 					    </li>
@@ -150,7 +103,7 @@
 							<li class="active"><span>${page }</span></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="${cp }/userPagingList?page=${page }">${page }</a></li>
+							<li><a href="${cp }/lprodPagingList?page=${page }">${page }</a></li>
 						</c:otherwise>					
 					</c:choose>
 					
@@ -163,7 +116,7 @@
 			  	 	</c:when>
 			  	 	<c:otherwise>
 				  	 	<li>
-					      <a href="${cp }/userPagingList?page=${pageVo.page+1 }" aria-label="Next">
+					      <a href="${cp }/lprodPagingList?page=${pageVo.page+1 }" aria-label="Next">
 					        <span aria-hidden="true">&raquo;</span>
 					      </a>
 					    </li>
