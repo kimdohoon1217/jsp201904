@@ -38,5 +38,16 @@
   	 from users
   </select>
   
+  <!-- 사용자 등록 -->
+  <insert id="insertUser" parameterType="user">
+  	 insert into users (userId, userNm, alias, pass, reg_dt, addr1, addr2, zipcode)
+    values(#{userId}, #{userNm}, #{alias}, #{pass}, #{reg_dt}, #{addr1}, #{addr2}, #{zipcode})
+  </insert>
+  
+  <!-- 사용자 삭제 -->
+  <delete id="deleteUser" parameterType="String">
+  	delete users where userid = #{userId}
+  </delete>
+  
   
 </mapper>

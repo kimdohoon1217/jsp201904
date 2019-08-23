@@ -2,9 +2,13 @@ package kr.or.ddit.user.repository.service;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,14 +16,20 @@ import kr.or.ddit.common.model.Page;
 import kr.or.ddit.user.model.User;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.user.service.UserService;
+import kr.or.ddit.util.MybatisUtil;
 
 public class UserServiceTest {
 	
 	private IUserService userService;
+	private SqlSession sqlSession;
+	private String userId = "brownTest";
 	
 	@Before
 	public void setup() {
 		userService = new UserService();
+		sqlSession = MybatisUtil.getSession();
+		userService.deleteUser(userId);
+		
 	}
 
 	@Test
@@ -115,6 +125,28 @@ public class UserServiceTest {
 		assertEquals(1, (int)paginationSize);
 	}
 	
+	@Test
+	public void insertUserTest() throws ParseException {
+		/***Given***/
+		User user = new User();
+		//'2019-08-08'
+		
+		user.setUserId(userId);
+		user.setUserNm("브라운테스트");
+		user.setAlias("곰테스트");
+		user.setPass("brownTest1234");
+		user.setReg_dt(new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-08"));
+		user.setAddr1("대전광역시 중구 중앙로 76");
+		user.setAddr2("영민빌딩 2층 DDIT");
+		user.setZipcode("34940");
+		
+		
+		/***When***/
+		int insertCnt = userService.insertUser(user);
+		
+		/***Then***/
+		assertEquals(1, insertCnt);
+	}
 	
 
 }
