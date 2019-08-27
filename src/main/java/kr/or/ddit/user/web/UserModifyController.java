@@ -76,7 +76,7 @@ public class UserModifyController extends HttpServlet {
 		
 		Date reg_dt_date = null;
 		
-		
+		//파일가져올때는 getPart를 사용한다.
 		Part picture = request.getPart("picture");
 		
 		String filename = "";
@@ -91,8 +91,12 @@ public class UserModifyController extends HttpServlet {
 			path = FileuploadUtil.getPath() + realFilename + ext;
 			
 			picture.write(path);
+		}else {
+			// 파일 수정 안했을 떄
+			User user = userService.getUser(userId);
+			filename = user.getFilename();
+			path = user.getRealFilename();
 		}
-		
 		
 		try {
 			reg_dt_date = new SimpleDateFormat("yyyy-MM-dd").parse(reg_dt);
@@ -100,23 +104,20 @@ public class UserModifyController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		logger.debug("user parameter : {}, {}, {}, {}, {}, {}, {}, {}",
+				userId, userNm, alias, reg_dt, addr1, addr2, zipcode, pass);
 		
-			logger.debug("user parameter : {}, {}, {}, {}, {}, {}, {}, {}",
-					userId, userNm, alias, reg_dt, addr1, addr2, zipcode, pass);
-			
-			//사용자 등록
-			User user = new User(userId, userNm, alias, reg_dt_date, addr1, addr2, zipcode, pass, filename, path);
-			int modiCnt = 0; 
-	
-			try {
-				modiCnt = userService.modifyUser(user);
-				if(modiCnt == 1) {
-					response.sendRedirect(request.getContextPath() + "/user?userId=" + userId);
-				}
-			}catch(Exception e) {
-				doGet(request, response);
-			}
-		
+		//사용자 등록
+		User user = new User(userId, userNm, alias, reg_dt_date, addr1, addr2, zipcode, pass, filename, path);
+		int modiCnt = 0; 
 
+		try {
+			modiCnt = userService.modifyUser(user);
+			if(modiCnt == 1) {
+				response.sendRedirect(request.getContextPath() + "/user?userId=" + userId);
+			}
+		}catch(Exception e) {
+			doGet(request, response);
+		}
 	}
 }

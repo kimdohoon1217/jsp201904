@@ -148,5 +148,26 @@ public class UserServiceTest {
 		assertEquals(1, insertCnt);
 	}
 	
+	@Test
+	public void ModifyUserTest() throws ParseException {
+		/***Given***/
+		User user = new User();
+		user.setUserId(userId);
+		user.setUserNm("브라운테스트");
+		user.setAlias("곰테스트");
+		user.setPass("brownTest1234");
+		user.setReg_dt(new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-08"));
+		user.setAddr1("대전광역시 중구 중앙로 76");
+		user.setAddr2("영민빌딩 2층 DDIT");
+		user.setZipcode("34940");
+		user.setRealFilename("user.jpg");
+		/***When***/
+		int in = userService.insertUser(user);
+		int res = userService.modifyUser(user);
+		
+		/***Then***/
+		assertEquals(1, res);
+	}
+	
 
 }
