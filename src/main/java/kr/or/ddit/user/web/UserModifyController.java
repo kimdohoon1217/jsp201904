@@ -18,15 +18,16 @@ import javax.servlet.http.Part;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import kr.or.ddit.user.model.User;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.user.service.UserService;
 import kr.or.ddit.utill.FileuploadUtil;
 
 
-@WebServlet("/userForm")
+@WebServlet("/userModify")
 @MultipartConfig(maxFileSize = 1024*1024*5, maxRequestSize = 1024*1024*5*5) 
-public class UserFormController extends HttpServlet {
+public class UserModifyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     private static final Logger logger = LoggerFactory.getLogger(UserFormController.class);
@@ -40,7 +41,14 @@ public class UserFormController extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/user/userForm.jsp").forward(request, response);
+		request.setCharacterEncoding("UTF-8");
+		
+		String id = request.getParameter("userId");
+		
+		User user = userService.getUser(id);
+		request.setAttribute("user", user);
+		
+		request.getRequestDispatcher("/user/userModiForm.jsp").forward(request, response);
 	}
 
 	
@@ -92,29 +100,23 @@ public class UserFormController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		//validation
-		Pattern p = Pattern.compile("^([a-zA-Z\\d\\.@]){5,20}$");
-		Matcher m = p.matcher(userId);
-		if(!m.find()) {
-			request.setAttribute("userIdMsg", "사용자 아이디가 잘못 되었습니다.");
-			doGet(request, response);
-		}else {
+		
 			logger.debug("user parameter : {}, {}, {}, {}, {}, {}, {}, {}",
 					userId, userNm, alias, reg_dt, addr1, addr2, zipcode, pass);
 			
 			//사용자 등록
 			User user = new User(userId, userNm, alias, reg_dt_date, addr1, addr2, zipcode, pass, filename, path);
-			int insertCnt = 0; 
+			int modiCnt = 0; 
 	
 			try {
-				insertCnt = userService.insertUser(user);
-				if(insertCnt == 1) {
+				modiCnt = userService.modifyUser(user);
+				if(modiCnt == 1) {
 					response.sendRedirect(request.getContextPath() + "/user?userId=" + userId);
 				}
 			}catch(Exception e) {
 				doGet(request, response);
 			}
-		}
-	}
+		
 
+	}
 }

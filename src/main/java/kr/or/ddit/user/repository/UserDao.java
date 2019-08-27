@@ -1,6 +1,7 @@
 package kr.or.ddit.user.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -106,6 +107,20 @@ public class UserDao implements IUserDao{
 	@Override
 	public int deleteUser(SqlSession sqlSession, String userId) {
 		return sqlSession.delete("user.deleteUser", userId); 
+	}
+
+	/**
+	 * Method : modifyUser
+	 * 작성자 : PC-18
+	 * 변경이력 :
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 * Method 설명 : 사용자 수정
+	 */
+	@Override
+	public int modifyUser(SqlSession sqlSession, User user) {
+		return sqlSession.update("user.modifyUser", user);
 	}
 	
 

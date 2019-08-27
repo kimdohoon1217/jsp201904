@@ -40,14 +40,25 @@
   
   <!-- 사용자 등록 -->
   <insert id="insertUser" parameterType="user">
-  	 insert into users (userId, userNm, alias, pass, reg_dt, addr1, addr2, zipcode)
-    values(#{userId}, #{userNm}, #{alias}, #{pass}, #{reg_dt}, #{addr1}, #{addr2}, #{zipcode})
+  	 insert into users (userId, userNm, alias, pass, reg_dt, addr1, addr2, zipcode, filename, realFilename)
+    values(#{userId, jdbcType=VARCHAR}, #{userNm, jdbcType=VARCHAR}, #{alias, jdbcType=VARCHAR}, #{pass, jdbcType=VARCHAR}, #{reg_dt, jdbcType=VARCHAR}, #{addr1, jdbcType=VARCHAR}, #{addr2, jdbcType=VARCHAR}, #{zipcode}, #{filename, jdbcType=VARCHAR}, #{realFilename, jdbcType=VARCHAR})
   </insert>
   
   <!-- 사용자 삭제 -->
   <delete id="deleteUser" parameterType="String">
   	delete users where userid = #{userId}
   </delete>
+  
+  <!-- 사용자 수정 -->
+  <update id="modifyUser" parameterType='user'>
+  	update users set 
+  	userNm = #{userNm},
+	alias = #{alias},
+	reg_dt = #{reg_dt},
+	pass = #{pass},
+	realFilename = #{realFilename, jdbcType=VARCHAR}
+	where userId = #{userId}
+  </update>
   
   
 </mapper>

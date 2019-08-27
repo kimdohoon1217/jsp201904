@@ -1,6 +1,7 @@
 package kr.or.ddit.user.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -58,5 +59,15 @@ public interface IUserDao {
 	 */
 	int deleteUser(SqlSession sqlSession, String userId);
 	
+	/**
+	 * Method : modifyUser
+	 * 작성자 : PC-18
+	 * 변경이력 :
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 * Method 설명 : 사용자 수정
+	 */
+	int modifyUser(SqlSession sqlSession, User user);
 	
 }

@@ -57,4 +57,6 @@ public interface IUserService {
 	
 	int deleteUser(String userId);
 	
+	int modifyUser(User user);
+	
 }
