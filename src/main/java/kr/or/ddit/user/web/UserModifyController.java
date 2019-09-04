@@ -1,12 +1,11 @@
 package kr.or.ddit.user.web;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -79,6 +78,9 @@ public class UserModifyController extends HttpServlet {
 		//파일가져올때는 getPart를 사용한다.
 		Part picture = request.getPart("picture");
 		
+		
+		User user1 = userService.getUser(userId);
+		
 		String filename = "";
 		String path = "";
 		//사용자가 파일을 업로드 한경우
@@ -91,11 +93,14 @@ public class UserModifyController extends HttpServlet {
 			path = FileuploadUtil.getPath() + realFilename + ext;
 			
 			picture.write(path);
+			
+			new File(user1.getRealFilename()).delete();
 		}else {
+			
+			
 			// 파일 수정 안했을 떄
-			User user = userService.getUser(userId);
-			filename = user.getFilename();
-			path = user.getRealFilename();
+			filename = user1.getFilename();
+			path = user1.getRealFilename();
 		}
 		
 		try {

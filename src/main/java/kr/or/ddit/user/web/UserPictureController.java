@@ -32,7 +32,12 @@ public class UserPictureController extends HttpServlet {
 		
 		ServletOutputStream sos = response.getOutputStream();
 		
+		
 		File picture = new File(user.getRealFilename());
+//		if(!picture.exists()) {
+//			picture = new File("")
+//		}
+		
 		FileInputStream fis = new FileInputStream(picture);
 		
 		byte[] buff = new byte[512];
