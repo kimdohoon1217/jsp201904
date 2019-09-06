@@ -49,7 +49,7 @@ public class LoginCheckFilter implements Filter {
 		else if(S_USERVO == null) {
 			//로그인 화면으로 이동(redirect)
 			HttpServletResponse httpResponse = (HttpServletResponse)response;
-			httpResponse.sendRedirect("/login");
+			httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
 		}
 		//로그인한 상황
 		else {
